@@ -42,11 +42,20 @@ router.put("/:id", async (req, res) => {
         return res.status(200).json({mensagem: "Produto atualizado com sucesso."})
         
     } catch {
-        return res.status(400).json({mensagem: "Produto não encontrado."})
-        
+        return res.status(400).json({mensagem: "Produto não encontrado."})        
     }
-
 })
+
+    router.delete('/:id', async(req, res) =>{
+        const id = req.params.id
+
+        try{
+            await Produto.deleteOne({_id: id})
+            return res.status(200).json({mensagem: "Produto deletado com sucesso."})
+        } catch(error){
+            return res.status(500).json({error: error})        
+        }
+    })
 
 
 module.exports = router
